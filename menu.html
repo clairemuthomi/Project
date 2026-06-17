@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Menu — Layali Café</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --m0:#0a1a0e;--m1:#1a3320;--m2:#2a5c3a;--m3:#4a8c5c;--m4:#6abf7c;
+      --m5:#a8d8a8;--m6:#c8ecc8;--m7:#e8f8e8;--m8:#f2fbf2;
+      --matcha:#7ab648;--matcha-light:#b5d99c;--matcha-pale:#e0f0d0;
+      --white:#ffffff;--cream:#f8fdf5;--text-dk:#0f1f14;--text-md:#2d4a35;--text-lt:#6a9470;--gold:#c9a84c;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text-dk);line-height:1.6;overflow-x:hidden}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--m7)}::-webkit-scrollbar-thumb{background:var(--m3);border-radius:3px}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:16px 64px;background:rgba(10,26,14,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(106,191,124,0.15)}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--m6);letter-spacing:0.06em;text-decoration:none}
+    .nav-logo em{color:var(--matcha);font-style:italic}
+    .nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+    .nav-links a{color:var(--m5);text-decoration:none;font-size:0.8rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--matcha-light)}
+    .nav-reserve-btn{padding:9px 22px;border-radius:50px;background:var(--matcha);color:var(--m0);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s}
+    .nav-reserve-btn:hover{background:var(--matcha-light);transform:translateY(-1px)}
+    section{padding:100px 24px}
+    .container{max-width:1240px;margin:0 auto}
+    .s-label{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--matcha);margin-bottom:10px;display:block}
+    .s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.6rem);color:var(--m1);line-height:1.1;margin-bottom:16px}
+    .s-sub{font-size:1rem;color:var(--text-md);max-width:520px;font-weight:300;line-height:1.75}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+    .form-group label{font-size:0.78rem;font-weight:600;color:var(--text-md);letter-spacing:0.06em;text-transform:uppercase}
+    .form-group input,.form-group select,.form-group textarea{padding:13px 16px;border-radius:12px;border:1.5px solid var(--m6);background:var(--m8);font-family:'Inter',sans-serif;font-size:0.92rem;color:var(--text-dk);transition:border-color .2s,box-shadow .2s;outline:none}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--matcha);box-shadow:0 0 0 3px rgba(122,182,72,0.12)}
+    .form-group textarea{resize:vertical;min-height:80px}
+    .btn-submit{width:100%;padding:16px;border-radius:50px;background:var(--matcha);color:var(--m0);font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:none;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(122,182,72,0.3)}
+    .btn-submit:hover{background:var(--m2);color:var(--white);transform:translateY(-2px);box-shadow:0 8px 32px rgba(26,51,32,0.3)}
+    .modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--white);border-radius:28px;padding:52px 48px;text-align:center;max-width:440px;width:90%;animation:popIn .4s cubic-bezier(.22,.61,.36,1) both}
+    @keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+    .modal-icon{font-size:3rem;margin-bottom:16px}
+    .modal h3{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--m1);margin-bottom:10px}
+    .modal p{color:var(--text-md);font-size:0.92rem;line-height:1.7;margin-bottom:28px}
+    .modal-close{padding:12px 36px;border-radius:50px;background:var(--matcha);color:var(--m0);font-weight:600;font-size:0.88rem;border:none;cursor:pointer;transition:background .2s}
+    .modal-close:hover{background:var(--m2);color:var(--white)}
+    footer{background:var(--m0);padding:64px 24px 36px}
+    .footer-inner{max-width:1240px;margin:0 auto}
+    .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .footer-brand p{color:var(--m4);font-size:0.85rem;line-height:1.75;max-width:240px;margin-bottom:20px}
+    .social-links{display:flex;gap:12px}
+    .social-link{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:0.9rem;transition:background .2s,border-color .2s}
+    .social-link:hover{background:rgba(122,182,72,.2);border-color:var(--matcha)}
+    .footer-col h5{color:var(--m5);font-size:0.78rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .footer-col ul li a{color:var(--m4);text-decoration:none;font-size:0.84rem;transition:color .2s}
+    .footer-col ul li a:hover{color:var(--matcha-light)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;flex-wrap:wrap;gap:12px}
+    .footer-copy{color:var(--text-lt);font-size:0.76rem}
+    .footer-legal{display:flex;gap:20px}
+    .footer-legal a{color:var(--text-lt);font-size:0.76rem;text-decoration:none}
+    .footer-legal a:hover{color:var(--m4)}
+    @media(max-width:1024px){.footer-top{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){nav{padding:14px 20px}.nav-links{display:none}.form-row{grid-template-columns:1fr}}
+    @media(max-width:540px){section{padding:64px 16px}}
+
+    .menu-section{background:var(--m8);padding-top:140px}
+    .menu-head{text-align:center;margin-bottom:48px}
+    .menu-head .s-sub{margin:0 auto}
+    .menu-tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:52px}
+    .tab-btn{padding:10px 24px;border-radius:50px;border:1.5px solid var(--m3);background:transparent;color:var(--m2);font-size:0.82rem;font-weight:500;cursor:pointer;transition:all .2s;letter-spacing:0.04em}
+    .tab-btn.active,.tab-btn:hover{background:var(--m2);color:var(--white);border-color:var(--m2)}
+    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:28px}
+    .menu-card{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 16px rgba(26,51,32,.07);transition:transform .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s;position:relative;cursor:pointer}
+    .menu-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(26,51,32,.16)}
+    .card-img-wrap{position:relative;overflow:hidden;height:210px}
+    .card-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+    .menu-card:hover .card-img{transform:scale(1.07)}
+    .card-hover-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,26,14,0.0) 0%,rgba(10,26,14,0.88) 100%);opacity:0;transition:opacity .3s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+    .menu-card:hover .card-hover-overlay{opacity:1}
+    .overlay-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--white);font-weight:600;margin-bottom:6px}
+    .overlay-desc{font-size:0.8rem;color:var(--m5);line-height:1.5;margin-bottom:12px}
+    .overlay-price{font-size:1rem;font-weight:700;color:var(--matcha-light)}
+    .overlay-badge{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:50px;background:rgba(122,182,72,0.25);border:1px solid rgba(122,182,72,0.5);color:var(--matcha-light);font-size:0.7rem;font-weight:500}
+    .card-body{padding:18px 20px}
+    .card-cat{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--matcha);margin-bottom:4px}
+    .card-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--m1);margin-bottom:4px;font-weight:600}
+    .card-footer-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+    .card-price{font-weight:700;font-size:1rem;color:var(--m2)}
+    .card-tag{font-size:0.68rem;padding:3px 10px;border-radius:50px;background:var(--matcha-pale);color:var(--m2);font-weight:500}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">L a y a l i <em>Café</em></a>
+  <ul class="nav-links">
+    <li><a href="about.html" >Story</a></li>
+    <li><a href="menu.html" class="active">Menu</a></li>
+    <li><a href="rewards.html" >Rewards</a></li>
+    <li><a href="testimonials.html" >Reviews</a></li>
+    <li><a href="reservation.html" class="nav-reserve-btn">Reserve a Table</a></li>
+  </ul>
+</nav>
+
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="menu-head">
+      <span class="s-label">What We Serve</span>
+      <h2 class="s-title">The Menu</h2>
+      <p class="s-sub" style="text-align:center;margin:0 auto 12px">Forty-six reasons to linger a little longer.</p>
+      <p style="text-align:center;font-size:0.8rem;color:var(--text-lt)">✦ Hover over any item to see details ✦</p>
+    </div>
+    <div class="menu-tabs">
+      <button class="tab-btn active" onclick="filterMenu('all',this)">All</button>
+      <button class="tab-btn" onclick="filterMenu('matcha',this)">🍵 Matcha</button>
+      <button class="tab-btn" onclick="filterMenu('coffee',this)">Coffee</button>
+      <button class="tab-btn" onclick="filterMenu('drinks',this)">Drinks</button>
+      <button class="tab-btn" onclick="filterMenu('breakfast',this)">Breakfast</button>
+      <button class="tab-btn" onclick="filterMenu('mains',this)">Mains</button>
+      <button class="tab-btn" onclick="filterMenu('pastry',this)">Pastries</button>
+      <button class="tab-btn" onclick="filterMenu('dessert',this)">Desserts</button>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+<script>
+const menuItems=[
+  {name:"Ceremonial Matcha Latte",cat:"matcha",label:"Matcha",price:"KSh 480",desc:"Uji ceremonial grade matcha whisked to perfection with steamed oat milk and a touch of raw honey.",badge:"Signature",img:"https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=600&q=85"},
+
+  {name:"Matcha Espresso Fusion",cat:"matcha",label:"Matcha",price:"KSh 520",desc:"A double shot of espresso meets ceremonial matcha — bold, complex, and surprisingly harmonious.",badge:"Bold",img:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=85"},
+  {name:"Matcha Cheesecake",cat:"matcha",label:"Matcha",price:"KSh 560",desc:"No-bake cheesecake with a ceremonial matcha swirl, biscuit base and white chocolate ganache drizzle.",badge:"",img:"https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=85"},
+  {name:"Matcha Croissant",cat:"matcha",label:"Matcha",price:"KSh 380",desc:"Buttery laminated croissant with matcha frangipane filling and white chocolate drizzle.",badge:"Fresh Daily",img:"https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=85"},
+  {name:"Matcha Chia Pudding",cat:"matcha",label:"Matcha",price:"KSh 440",desc:"Overnight chia soaked in ceremonial matcha and coconut milk, topped with mango and coconut flakes.",badge:"Vegan",img:"https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=600&q=85"},
+  {name:"Matcha Tiramisu",cat:"matcha",label:"Matcha",price:"KSh 580",desc:"Matcha-soaked sponge fingers, mascarpone cream, dusted with ceremonial matcha powder.",badge:"Chef's Special",img:"https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=85"},
+  {name:"Matcha Bubble Tea",cat:"matcha",label:"Matcha",price:"KSh 520",desc:"Ceremonial matcha shaken with brown sugar syrup and tapioca pearls.",badge:"Trending",img:"https://images.unsplash.com/photo-1558857563-b371033873b8?w=600&q=85"},
+  {name:"Matcha Pancakes",cat:"matcha",label:"Matcha",price:"KSh 680",desc:"Fluffy Japanese-style matcha pancakes with whipped cream, strawberry compote and matcha honey.",badge:"Weekend Only",img:"https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=600&q=85"},
+  {name:"Matcha Lemonade",cat:"matcha",label:"Matcha",price:"KSh 400",desc:"Fresh lemon juice, sparkling water and a matcha float. Tart, earthy and incredibly refreshing.",badge:"Vegan",img:"https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=600&q=85"},
+  {name:"Signature Espresso",cat:"coffee",label:"Coffee",price:"KSh 250",desc:"Double shot of our single-origin Ethiopian Yirgacheffe blend. Rich, balanced and bright.",badge:"Best Seller",img:"https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&q=85"},
+  {name:"Oat Milk Flat White",cat:"coffee",label:"Coffee",price:"KSh 380",desc:"Silky steamed oat milk poured over two tight ristretto shots. Creamy and plant-based.",badge:"Vegan",img:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=85"},
+  {name:"Cold Brew",cat:"coffee",label:"Coffee",price:"KSh 420",desc:"Slow-steeped for 18 hours then served over hand-cracked ice. Bold and naturally sweet.",badge:"Iced",img:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&q=85"},
+  {name:"Caramel Macchiato",cat:"coffee",label:"Coffee",price:"KSh 400",desc:"Layered vanilla syrup, steamed milk, double espresso and house salted caramel drizzle.",badge:"",img:"https://images.unsplash.com/photo-1534778101976-62847782c213?w=600&q=85"},
+  {name:"Dirty Chai Latte",cat:"coffee",label:"Coffee",price:"KSh 420",desc:"House-spiced masala chai spiked with a single shot of espresso. Warmly addictive.",badge:"Spiced",img:"https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=600&q=85"},
+  {name:"Affogato",cat:"coffee",label:"Coffee",price:"KSh 460",desc:"Silky vanilla gelato drowned under a hot double espresso. Dessert and coffee in one.",badge:"Indulgent",img:"https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=600&q=85"},
+  {name:"Vietnamese Iced Coffee",cat:"coffee",label:"Coffee",price:"KSh 390",desc:"Condensed milk layered beneath slow-drip coffee, poured over crushed ice.",badge:"Iced",img:"https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=85"},
+  {name:"Honey Lavender Latte",cat:"coffee",label:"Coffee",price:"KSh 440",desc:"Espresso with house lavender syrup and wildflower honey, steamed oat milk.",badge:"Floral",img:"https://images.unsplash.com/photo-1561882468-9110d70d0691?w=600&q=85"},
+  {name:"Hibiscus Ginger Tea",cat:"drinks",label:"Drinks",price:"KSh 300",desc:"Kenyan hibiscus flowers steeped with fresh ginger, honey and a star anise pod.",badge:"Caffeine-Free",img:"https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=600&q=85"},
+  {name:"Mango Passion Smoothie",cat:"drinks",label:"Drinks",price:"KSh 450",desc:"Kenyan mango, passion fruit, banana and yoghurt blended fresh to order.",badge:"No Added Sugar",img:"https://images.unsplash.com/photo-1553530979-7ee52a2670c4?w=600&q=85"},
+  {name:"Sparkling Mint Lemonade",cat:"drinks",label:"Drinks",price:"KSh 350",desc:"House-squeezed lemons, fresh mint, sparkling water, a pinch of sea salt.",badge:"Refreshing",img:"https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=600&q=85"},
