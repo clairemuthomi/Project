@@ -13,3 +13,15 @@
       --matcha:#7ab648;--matcha-light:#b5d99c;--matcha-pale:#e0f0d0;
       --white:#ffffff;--cream:#f8fdf5;--text-dk:#0f1f14;--text-md:#2d4a35;--text-lt:#6a9470;--gold:#c9a84c;
     }
+     html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text-dk);line-height:1.6;overflow-x:hidden}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--m7)}::-webkit-scrollbar-thumb{background:var(--m3);border-radius:3px}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:16px 64px;background:rgba(10,26,14,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(106,191,124,0.15)}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--m6);letter-spacing:0.06em;text-decoration:none}
+    .nav-logo em{color:var(--matcha);font-style:italic}
+    .nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+    .nav-links a{color:var(--m5);text-decoration:none;font-size:0.8rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--matcha-light)}
+    .nav-reserve-btn{padding:9px 22px;border-radius:50px;background:var(--matcha);color:var(--m0);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .15s}
+    .nav-reserve-btn:hover{background:var(--matcha-light);transform:translateY(-1px)}
+    section{padding:100px 24px}
